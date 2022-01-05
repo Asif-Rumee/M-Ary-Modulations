@@ -21,7 +21,6 @@ for idx_modulation, modulation in enumerate(modulations_array):
     
     for idx_EbN0dB, EbN0dB in enumerate(EbN0dBs):
         EsN0dB = EbN0dB + 10*np.log10(number_bits_per_symbol)
-        noise_variance = 10**(EsN0dB/10)
         input_symbol_bits = np.random.randint(0, 2, int(number_symbols*number_bits_per_symbol))
         modulated_symbol_bits = modem.modulate(input_symbol_bits)
         Es = np.mean(np.abs(modulated_symbol_bits)**2) 
@@ -29,12 +28,12 @@ for idx_modulation, modulation in enumerate(modulations_array):
 
         noisy = modulated_symbol_bits + np.sqrt(No/2) * (np.random.randn(modulated_symbol_bits.shape[0])+ 1j*np.random.randn(modulated_symbol_bits.shape[0])) # AWGN
 
-        demodulated_symbol_bits = modem.demodulate(noisy, noise_var=noise_variance)
+        demodulated_symbol_bits = modem.demodulate(noisy)
         BER[idx_EbN0dB] = np.mean(np.abs(input_symbol_bits - demodulated_symbol_bits))
         
-    ax.semilogy(EbN0dBs,BER,color=colors[idx_modulation],marker='o',linestyle='-',label='M = '+str(modulation))
+    ax.semilogy(EbN0dBs,BER,color=colors[idx_modulation],marker='.',linestyle='-',label='M = '+str(modulation))
     
-ax.set_xlabel('Performance analysis of M-PSK over AWGN')
+ax.set_title('Performance analysis of M-PSK over AWGN')
 ax.set_xlabel('Eb/N0 (dB)')
 ax.set_ylabel('BER')
 ax.grid()
