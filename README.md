@@ -1,4 +1,4 @@
 # M-Ary-Modulations
 
-![Screenshot](screenshot01.png)
-![Screenshot](screenshot02.png)
+![Screenshot](screenshot10.png)
+![Screenshot](screenshot20.png)
