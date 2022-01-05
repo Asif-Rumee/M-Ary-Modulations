@@ -12,6 +12,7 @@ EbN0dBs = np.arange(start=-2,stop = 26, step = 2)
 number_symbols = 10**4
 modulations_array = [2, 4, 8, 16, 32]
 colors = ['k', 'b', 'r', 'm', 'y']
+signs = ['s', 'v', '^', '*', '.']
 fig, ax = plt.subplots(nrows=1,ncols=1)
 
 for idx_modulation, modulation in enumerate(modulations_array):
@@ -31,7 +32,7 @@ for idx_modulation, modulation in enumerate(modulations_array):
         demodulated_symbol_bits = modem.demodulate(noisy)
         BER[idx_EbN0dB] = np.mean(np.abs(input_symbol_bits - demodulated_symbol_bits))
         
-    ax.semilogy(EbN0dBs,BER,color=colors[idx_modulation],marker='.',linestyle='-',label='M = '+str(modulation))
+    ax.semilogy(EbN0dBs,BER,color=colors[idx_modulation],marker=signs[idx_modulation],linestyle='-',label='M = '+str(modulation))
     
 ax.set_title('Performance analysis of M-PSK over AWGN')
 ax.set_xlabel('Eb/N0 (dB)')
